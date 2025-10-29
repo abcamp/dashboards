@@ -2,9 +2,9 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "dashboards",
+    "title": "Star Wars Dashboard",
     "section": "",
-    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites.\n\n1 + 1\n\n[1] 2"
+    "text": "── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   3.5.2     ✔ tibble    3.3.0\n✔ lubridate 1.9.4     ✔ tidyr     1.3.1\n✔ purrr     1.1.0     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\nAttaching package: 'plotly'\n\n\nThe following object is masked from 'package:ggplot2':\n\n    last_plot\n\n\nThe following object is masked from 'package:stats':\n\n    filter\n\n\nThe following object is masked from 'package:graphics':\n\n    layout"
   },
   {
     "objectID": "about.html",
@@ -12,5 +12,26 @@
     "title": "About",
     "section": "",
     "text": "About this site\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "index.html#row-1",
+    "href": "index.html#row-1",
+    "title": "Star Wars Dashboard",
+    "section": "Row 1",
+    "text": "Row 1\n\np1 &lt;- ggplot(data = starwars, aes(x = mass, y = height, text = name)) +\n  geom_point()\n\nggplotly(p1)"
+  },
+  {
+    "objectID": "index.html#row-2",
+    "href": "index.html#row-2",
+    "title": "Star Wars Dashboard",
+    "section": "Row 2",
+    "text": "Row 2\n\np2 &lt;- ggplot(data = starwars, aes(x = name, y = height)) +\n  geom_bar(stat=\"identity\") +\n  theme(axis.text.x = element_text(angle = 45, vjust = .5, hjust = 1))\n\nggplotly(p2)\n\n\n\n\n\n\nstarwars &lt;- starwars %&gt;% \n  select(name, height, mass, gender, homeworld, species)\n\nknitr::kable(starwars)\n\n\n\n\n\n\n\n\n\n\n\n\nname\nheight\nmass\ngender\nhomeworld\nspecies\n\n\n\n\nLuke Skywalker\n172\n77.0\nmasculine\nTatooine\nHuman\n\n\nC-3PO\n167\n75.0\nmasculine\nTatooine\nDroid\n\n\nR2-D2\n96\n32.0\nmasculine\nNaboo\nDroid\n\n\nDarth Vader\n202\n136.0\nmasculine\nTatooine\nHuman\n\n\nLeia Organa\n150\n49.0\nfeminine\nAlderaan\nHuman\n\n\nOwen Lars\n178\n120.0\nmasculine\nTatooine\nHuman\n\n\nBeru Whitesun Lars\n165\n75.0\nfeminine\nTatooine\nHuman\n\n\nR5-D4\n97\n32.0\nmasculine\nTatooine\nDroid\n\n\nBiggs Darklighter\n183\n84.0\nmasculine\nTatooine\nHuman\n\n\nObi-Wan Kenobi\n182\n77.0\nmasculine\nStewjon\nHuman\n\n\nAnakin Skywalker\n188\n84.0\nmasculine\nTatooine\nHuman\n\n\nWilhuff Tarkin\n180\nNA\nmasculine\nEriadu\nHuman\n\n\nChewbacca\n228\n112.0\nmasculine\nKashyyyk\nWookiee\n\n\nHan Solo\n180\n80.0\nmasculine\nCorellia\nHuman\n\n\nGreedo\n173\n74.0\nmasculine\nRodia\nRodian\n\n\nJabba Desilijic Tiure\n175\n1358.0\nmasculine\nNal Hutta\nHutt\n\n\nWedge Antilles\n170\n77.0\nmasculine\nCorellia\nHuman\n\n\nJek Tono Porkins\n180\n110.0\nNA\nBestine IV\nNA\n\n\nYoda\n66\n17.0\nmasculine\nNA\nYoda’s species\n\n\nPalpatine\n170\n75.0\nmasculine\nNaboo\nHuman\n\n\nBoba Fett\n183\n78.2\nmasculine\nKamino\nHuman\n\n\nIG-88\n200\n140.0\nmasculine\nNA\nDroid\n\n\nBossk\n190\n113.0\nmasculine\nTrandosha\nTrandoshan\n\n\nLando Calrissian\n177\n79.0\nmasculine\nSocorro\nHuman\n\n\nLobot\n175\n79.0\nmasculine\nBespin\nHuman\n\n\nAckbar\n180\n83.0\nmasculine\nMon Cala\nMon Calamari\n\n\nMon Mothma\n150\nNA\nfeminine\nChandrila\nHuman\n\n\nArvel Crynyd\nNA\nNA\nmasculine\nNA\nHuman\n\n\nWicket Systri Warrick\n88\n20.0\nmasculine\nEndor\nEwok\n\n\nNien Nunb\n160\n68.0\nmasculine\nSullust\nSullustan\n\n\nQui-Gon Jinn\n193\n89.0\nmasculine\nNA\nHuman\n\n\nNute Gunray\n191\n90.0\nmasculine\nCato Neimoidia\nNeimodian\n\n\nFinis Valorum\n170\nNA\nmasculine\nCoruscant\nHuman\n\n\nPadmé Amidala\n185\n45.0\nfeminine\nNaboo\nHuman\n\n\nJar Jar Binks\n196\n66.0\nmasculine\nNaboo\nGungan\n\n\nRoos Tarpals\n224\n82.0\nmasculine\nNaboo\nGungan\n\n\nRugor Nass\n206\nNA\nmasculine\nNaboo\nGungan\n\n\nRic Olié\n183\nNA\nmasculine\nNaboo\nHuman\n\n\nWatto\n137\nNA\nmasculine\nToydaria\nToydarian\n\n\nSebulba\n112\n40.0\nmasculine\nMalastare\nDug\n\n\nQuarsh Panaka\n183\nNA\nmasculine\nNaboo\nHuman\n\n\nShmi Skywalker\n163\nNA\nfeminine\nTatooine\nHuman\n\n\nDarth Maul\n175\n80.0\nmasculine\nDathomir\nZabrak\n\n\nBib Fortuna\n180\nNA\nmasculine\nRyloth\nTwi’lek\n\n\nAyla Secura\n178\n55.0\nfeminine\nRyloth\nTwi’lek\n\n\nRatts Tyerel\n79\n15.0\nmasculine\nAleen Minor\nAleena\n\n\nDud Bolt\n94\n45.0\nmasculine\nVulpter\nVulptereen\n\n\nGasgano\n122\nNA\nmasculine\nTroiken\nXexto\n\n\nBen Quadinaros\n163\n65.0\nmasculine\nTund\nToong\n\n\nMace Windu\n188\n84.0\nmasculine\nHaruun Kal\nHuman\n\n\nKi-Adi-Mundi\n198\n82.0\nmasculine\nCerea\nCerean\n\n\nKit Fisto\n196\n87.0\nmasculine\nGlee Anselm\nNautolan\n\n\nEeth Koth\n171\nNA\nmasculine\nIridonia\nZabrak\n\n\nAdi Gallia\n184\n50.0\nfeminine\nCoruscant\nTholothian\n\n\nSaesee Tiin\n188\nNA\nmasculine\nIktotch\nIktotchi\n\n\nYarael Poof\n264\nNA\nmasculine\nQuermia\nQuermian\n\n\nPlo Koon\n188\n80.0\nmasculine\nDorin\nKel Dor\n\n\nMas Amedda\n196\nNA\nmasculine\nChampala\nChagrian\n\n\nGregar Typho\n185\n85.0\nNA\nNaboo\nNA\n\n\nCordé\n157\nNA\nNA\nNaboo\nNA\n\n\nCliegg Lars\n183\nNA\nmasculine\nTatooine\nHuman\n\n\nPoggle the Lesser\n183\n80.0\nmasculine\nGeonosis\nGeonosian\n\n\nLuminara Unduli\n170\n56.2\nfeminine\nMirial\nMirialan\n\n\nBarriss Offee\n166\n50.0\nfeminine\nMirial\nMirialan\n\n\nDormé\n165\nNA\nfeminine\nNaboo\nHuman\n\n\nDooku\n193\n80.0\nmasculine\nSerenno\nHuman\n\n\nBail Prestor Organa\n191\nNA\nmasculine\nAlderaan\nHuman\n\n\nJango Fett\n183\n79.0\nmasculine\nConcord Dawn\nHuman\n\n\nZam Wesell\n168\n55.0\nfeminine\nZolan\nClawdite\n\n\nDexter Jettster\n198\n102.0\nmasculine\nOjom\nBesalisk\n\n\nLama Su\n229\n88.0\nmasculine\nKamino\nKaminoan\n\n\nTaun We\n213\nNA\nfeminine\nKamino\nKaminoan\n\n\nJocasta Nu\n167\nNA\nfeminine\nCoruscant\nHuman\n\n\nR4-P17\n96\nNA\nfeminine\nNA\nDroid\n\n\nWat Tambor\n193\n48.0\nmasculine\nSkako\nSkakoan\n\n\nSan Hill\n191\nNA\nmasculine\nMuunilinst\nMuun\n\n\nShaak Ti\n178\n57.0\nfeminine\nShili\nTogruta\n\n\nGrievous\n216\n159.0\nmasculine\nKalee\nKaleesh\n\n\nTarfful\n234\n136.0\nmasculine\nKashyyyk\nWookiee\n\n\nRaymus Antilles\n188\n79.0\nmasculine\nAlderaan\nHuman\n\n\nSly Moore\n178\n48.0\nNA\nUmbara\nNA\n\n\nTion Medon\n206\n80.0\nmasculine\nUtapau\nPau’an\n\n\nFinn\nNA\nNA\nmasculine\nNA\nHuman\n\n\nRey\nNA\nNA\nfeminine\nNA\nHuman\n\n\nPoe Dameron\nNA\nNA\nmasculine\nNA\nHuman\n\n\nBB8\nNA\nNA\nmasculine\nNA\nDroid\n\n\nCaptain Phasma\nNA\nNA\nfeminine\nNA\nHuman"
+  },
+  {
+    "objectID": "index.html#row-1-1",
+    "href": "index.html#row-1-1",
+    "title": "Star Wars Dashboard",
+    "section": "Row 1",
+    "text": "Row 1\n\nggplot(data = starwars, aes(x = mass, y = height)) +\n  geom_point()\n\nWarning: Removed 28 rows containing missing values or values outside the scale range\n(`geom_point()`)."
   }
 ]
