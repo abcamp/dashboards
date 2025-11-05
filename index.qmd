@@ -1,7 +1,9 @@
 ---
 title: "Star Wars Dashboard"
 author: "Amber Camp"
-format: dashboard
+format: 
+  dashboard:
+    theme: solar
 ---
 
 ```{r, echo=FALSE}
@@ -20,7 +22,7 @@ p1 <- ggplot(data = starwars, aes(x = mass, y = height, text = name)) +
 ggplotly(p1) 
 ```
 
-## Row 2 {.tabset}
+## Row 2
 
 ```{r}
 #| title: Bar Chart

@@ -1,0 +1,41 @@
+---
+title: "Assignment 8: Palmer Penguins Dashboard"
+author: "Amber Camp"
+format: dashboard
+---
+
+```{r, echo=FALSE}
+library(tidyverse)
+library(plotly)
+library(janitor)
+
+penguins <- read_csv("data/penguins_lter.csv")
+
+penguins <- penguins %>% 
+  clean_names()
+```
+
+Instructions: Make a dashboard with two rows. Row 1 should contain two graphs showing any `penguin` data you'd like. Row two should contain a table (use `knitr::kable` and `select` if you'd like to narrow down the columns). Then customize your dashboard by adding colors, labels, interactivity, etc.
+
+Optional: Add text cards, value boxes, tabs, pages, etc.
+
+## Row 1
+
+```{r, warning=FALSE}
+ggplot(penguins, aes(island, culmen_length_mm)) +
+  geom_boxplot()
+```
+
+```{r}
+ggplot(penguins, aes(flipper_length_mm, body_mass_g, color = species)) +
+  geom_point()
+```
+
+## Row 2
+
+```{r}
+penguins <- penguins %>% 
+  select(-c(comments, delta_15_n_o_oo, delta_13_c_o_oo))
+
+knitr::kable(penguins) 
+```
