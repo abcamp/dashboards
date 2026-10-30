@@ -1,0 +1,22 @@
+---
+title: "Candy"
+author: "Amber Camp"
+format: dashboard
+---
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(plotly)
+
+# install.packages("fivethirtyeight")
+candy <- fivethirtyeight::candy_rankings
+
+```
+
+## Row 1
+
+```{r}
+#| content: valuebox
+#| title: "Candy Types"
+list(icon = "basket", color = "warning", value = nrow(candy))
+```
