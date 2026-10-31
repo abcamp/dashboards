@@ -9,7 +9,7 @@ library(tidyverse)
 library(plotly)
 library(palmerpenguins)
 
-penguins <- penguins 
+penguins <- penguins
 ```
 
 # Plots?
