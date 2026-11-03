@@ -1,0 +1,177 @@
+---
+title: "Candy Power Ranking"
+author: "Amber Camp"
+date: "11/2/26"
+format: 
+  dashboard:
+    theme: sketchy
+---
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE, include=FALSE}
+library(tidyverse)
+library(plotly)
+library(fivethirtyeight) 
+
+candy <- fivethirtyeight::candy_rankings 
+
+candy <- candy |> 
+  mutate(type = case_when(
+    chocolate & fruity ~ "both",
+    chocolate ~ "chocolate",
+    fruity ~ "fruity",
+    .default = "other"))
+
+# count(candy, type)
+
+type_colors <- c(
+  chocolate = "#7B4B2A",
+  fruity    = "#E4572E",
+  other     = "#8E9AAF",
+  both      = "#F3A712")
+```
+
+# Dashboard
+
+## Row 1 {height="15%"}
+
+```{r}
+#| content: valuebox
+#| title: "Total Candies"
+
+list(
+  icon = "basket", 
+  color = "warning", 
+  value = nrow(candy))
+
+```
+
+```{r}
+#| content: valuebox
+#| title: "Number of Fruity Candies"
+
+
+list(
+  icon = "heart-fill",
+  color = "#E4572E",
+  value = sum(candy$type == "fruity"))
+
+```
+
+```{r}
+#| content: valuebox
+#| title: "Number of Chocolate Candies"
+
+list(
+  icon = "heart",
+  color = "#7B4B2A",
+  value = sum(candy$type == "chocolate"))
+```
+
+```{r}
+#| content: valuebox
+#| title: "Average win %"
+
+list(
+  icon  = "trophy",
+  color = "#8E9AAF",
+  value = paste0(round(mean(candy$winpercent)), "%"))
+```
+
+## Row 2
+
+### Column 1
+
+```{r}
+#| title: Win % by candy type
+
+boxplot <- ggplot(candy, aes(type, winpercent, color = type, fill = type)) +
+  geom_boxplot(alpha = 0.15, width = 0.55, outlier.shape = NA) +
+  geom_jitter(aes(text = paste0(competitorname, "<br>", round(winpercent, 2), "%")),
+            width = 0.1, height = 0, size = 2) +
+  scale_color_manual(values = type_colors) +
+  scale_fill_manual(values = type_colors) +
+  labs(x = NULL, y = "Win %") +
+  theme_minimal(base_size = 13) +
+  theme(
+    legend.position    = "none",
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor   = element_blank())
+
+ggplotly(boxplot, tooltip = "text") |>
+  style(boxpoints = FALSE, hoverinfo = "none", traces = 1:4) |>
+  layout(font = list(family = "Neucha")) |>
+  config(displayModeBar = FALSE)
+```
+
+### Column 2 {.tabset width="55%"}
+
+```{r}
+#| title: Top 15
+
+top15 <- candy |>
+  slice_max(winpercent, n = 15) |>
+  mutate(competitorname = fct_reorder(competitorname, winpercent)) |>
+  ggplot(aes(x = winpercent, y = competitorname, color = type, text = paste0(competitorname, "<br>", round(winpercent, 2), "%"))) +
+  geom_segment(aes(x = 0, xend = winpercent, yend = competitorname), linewidth = 1, show.legend = FALSE) +
+  geom_point(size = 3.5) +
+  scale_color_manual(values = type_colors) +
+  scale_x_continuous(limits = c(0, 90), expand = c(0, 0)) +
+  labs(x = "Win %", y = NULL, color = "Type") +
+  theme_minimal(base_size = 13) +
+  theme(
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor   = element_blank() )
+
+ggplotly(top15, tooltip = "text") |>
+  layout(font = list(family = "Neucha"), legend = list(orientation = "h", y = 1.08)) |>
+  config(displayModeBar = FALSE)
+```
+
+```{r}
+#| title: Bottom 15
+
+bottom15 <- candy |>
+  slice_min(winpercent, n = 15) |>
+  mutate(competitorname = fct_reorder(competitorname, winpercent)) |>
+  ggplot(aes(x = winpercent, y = competitorname, color = type, text = paste0(competitorname, "<br>", round(winpercent, 2), "%"))) +
+  geom_segment(aes(x = 0, xend = winpercent, yend = competitorname), linewidth = 1, show.legend = FALSE) +
+  geom_point(size = 3.5) +
+  scale_color_manual(values = type_colors) +
+  scale_x_continuous(limits = c(0, 90), expand = c(0, 0)) +
+  labs(x = "Win %", y = NULL, color = "Type") +
+  theme_minimal(base_size = 13) +
+  theme(
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor   = element_blank() )
+
+ggplotly(bottom15, tooltip = c("y", "x")) |>
+  layout(font = list(family = "Neucha"),
+         legend = list(orientation = "h", y = 1.08)) |>
+  config(displayModeBar = FALSE)
+```
+
+```{r}
+#| title: All candies
+
+candy |>
+  arrange(desc(winpercent)) |>
+  transmute(
+    Candy          = competitorname,
+    Type           = type,
+    `Win %`        = round(winpercent, 1),
+    `Sugar pctile` = round(sugarpercent * 100),
+    `Price pctile` = round(pricepercent * 100)) |>
+  knitr::kable()
+```
+
+# About
+
+::: {.card title="About this dashboard"}
+**Where the data comes from:** FiveThirtyEight's Halloween candy survey. People were shown two candies at a time and picked the one they'd rather get.
+
+**Win %** is how often a candy won those head-to-head matchups. 50% means it won about half the time.
+
+**Reading the box plot:** each dot is one candy, and the box shows the middle 50% of candies of that type. "Both" has only one candy (chocolate *and* fruity), so it's just a single dot, not a real distribution.
+
+Hover over any dot to see the candy's name.
+:::
