@@ -1,5 +1,5 @@
 ---
-title: "Candy Power Ranking"
+title: "538 Candy Ranking"
 author: "Amber Camp"
 date: "11/2/26"
 format: 
